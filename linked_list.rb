@@ -58,14 +58,19 @@ class LinkedList
 
   def at(index)
     pointer = self.head
-    for i in 0...index
+    for i in 1...index
       pointer = pointer.next_node
     end
     pointer
   end
 
   def pop
-
+    pointer = self.head
+    while pointer.next_node != tail
+      pointer = pointer.next_node
+    end
+    pointer.next_node = nil
+    self.tail = pointer
   end
 
   def contains?(value)
@@ -101,6 +106,38 @@ class LinkedList
     end
     s = s + "nil"
     s
+  end
+
+  def insert_at(value, index) 
+    if index == 0
+      temp = self.head
+      to_insert = Node.new(value)
+      to_insert.next_node = temp
+      self.head = to_insert
+    else
+      pointer = self.head
+      for i in 1...index
+        pointer = pointer.next_node
+      end
+      temp = pointer.next_node
+      to_insert = Node.new(value)
+      to_insert.next_node = temp
+      pointer.next_node = to_insert
+    end
+  end
+
+  def remove_at(index)
+    if index == 0
+      temp = self.head.next_node
+      self.head = temp
+    else
+      pointer = self.head
+      for i in 1...index
+        pointer = pointer.next_node
+      end
+      temp = pointer.next_node
+      pointer.next_node = temp.next_node
+    end
   end
 
 end
